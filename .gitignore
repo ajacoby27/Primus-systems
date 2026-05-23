@@ -1,0 +1,14 @@
+# Agent / local tooling
+.claude/
+
+# Node
+node_modules/
+
+# Throwaway smoke/capture scripts (see reports plan)
+scripts/reports/_smoke-*.js
+scripts/reports/_capture.js
+
+# OS / OneDrive junk
+Thumbs.db
+desktop.ini
+*.pdf
