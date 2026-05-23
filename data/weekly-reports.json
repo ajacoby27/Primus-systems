@@ -1,0 +1,186 @@
+{
+  "generatedUtc": "2026-05-22T14:15:00Z",
+  "sample": true,
+  "note": "SAMPLE DATA — placeholder until iRacing OAuth API access is granted. Shape matches the live pipeline output.",
+  "series": {
+    "gt3-regional-europe": {
+      "displayName": "GT3 Regional Tour — Europe",
+      "category": "GT3",
+      "multiclass": false,
+      "classes": {
+        "GT3": {
+          "weekId": "2026-2-7",
+          "weekNum": 7,
+          "track": "Circuit de Spa-Francorchamps",
+          "lastFetchedUtc": "2026-05-22T14:14:30Z",
+          "qualifying": [
+            { "rank": 1, "lap": "2:16.421", "lapMs": 1364210, "driver": "Max Versteeg", "irating": 6820, "car": "Ferrari 296 GT3" },
+            { "rank": 2, "lap": "2:16.510", "lapMs": 1365100, "driver": "Liam Carter", "irating": 5990, "car": "Porsche 911 GT3 R" },
+            { "rank": 3, "lap": "2:16.633", "lapMs": 1366330, "driver": "Anders Holm", "irating": 7200, "car": "Mercedes-AMG GT3 2020" },
+            { "rank": 4, "lap": "2:16.701", "lapMs": 1367010, "driver": "Diego Marin", "irating": 5510, "car": "Ferrari 296 GT3" },
+            { "rank": 5, "lap": "2:16.844", "lapMs": 1368440, "driver": "Kenji Sato", "irating": 4980, "car": "BMW M4 GT3" },
+            { "rank": 6, "lap": "2:16.998", "lapMs": 1369980, "driver": "Owen Pryce", "irating": 4600, "car": "Audi R8 LMS EVO II GT3" },
+            { "rank": 7, "lap": "2:17.044", "lapMs": 1370440, "driver": "Stefan Bauer", "irating": 4310, "car": "Lamborghini Huracan GT3 EVO" },
+            { "rank": 8, "lap": "2:17.180", "lapMs": 1371800, "driver": "Tom Whateley", "irating": 4090, "car": "McLaren 720S GT3" },
+            { "rank": 9, "lap": "2:17.260", "lapMs": 1372600, "driver": "Paolo Bianchi", "irating": 3880, "car": "Chevrolet Corvette Z06 GT3.R" },
+            { "rank": 10, "lap": "2:17.402", "lapMs": 1374020, "driver": "Henrik Vold", "irating": 3640, "car": "Ford Mustang GT3" }
+          ],
+          "raceLap": [
+            { "rank": 1, "lap": "2:16.980", "lapMs": 1369800, "driver": "Liam Carter", "irating": 5990, "car": "Porsche 911 GT3 R" },
+            { "rank": 2, "lap": "2:17.050", "lapMs": 1370500, "driver": "Max Versteeg", "irating": 6820, "car": "Ferrari 296 GT3" },
+            { "rank": 3, "lap": "2:17.190", "lapMs": 1371900, "driver": "Anders Holm", "irating": 7200, "car": "Mercedes-AMG GT3 2020" },
+            { "rank": 4, "lap": "2:17.260", "lapMs": 1372600, "driver": "Kenji Sato", "irating": 4980, "car": "BMW M4 GT3" },
+            { "rank": 5, "lap": "2:17.410", "lapMs": 1374100, "driver": "Diego Marin", "irating": 5510, "car": "Ferrari 296 GT3" },
+            { "rank": 6, "lap": "2:17.560", "lapMs": 1375600, "driver": "Owen Pryce", "irating": 4600, "car": "Audi R8 LMS EVO II GT3" },
+            { "rank": 7, "lap": "2:17.640", "lapMs": 1376400, "driver": "Stefan Bauer", "irating": 4310, "car": "Lamborghini Huracan GT3 EVO" },
+            { "rank": 8, "lap": "2:17.790", "lapMs": 1377900, "driver": "Tom Whateley", "irating": 4090, "car": "McLaren 720S GT3" },
+            { "rank": 9, "lap": "2:17.910", "lapMs": 1379100, "driver": "Paolo Bianchi", "irating": 3880, "car": "Chevrolet Corvette Z06 GT3.R" },
+            { "rank": 10, "lap": "2:18.020", "lapMs": 1380200, "driver": "Henrik Vold", "irating": 3640, "car": "Ford Mustang GT3" }
+          ],
+          "raceAvg": [
+            { "rank": 1, "lap": "2:18.340", "lapMs": 1383400, "driver": "Anders Holm", "irating": 7200, "car": "Mercedes-AMG GT3 2020" },
+            { "rank": 2, "lap": "2:18.420", "lapMs": 1384200, "driver": "Max Versteeg", "irating": 6820, "car": "Ferrari 296 GT3" },
+            { "rank": 3, "lap": "2:18.510", "lapMs": 1385100, "driver": "Liam Carter", "irating": 5990, "car": "Porsche 911 GT3 R" },
+            { "rank": 4, "lap": "2:18.690", "lapMs": 1386900, "driver": "Kenji Sato", "irating": 4980, "car": "BMW M4 GT3" },
+            { "rank": 5, "lap": "2:18.880", "lapMs": 1388800, "driver": "Diego Marin", "irating": 5510, "car": "Ferrari 296 GT3" },
+            { "rank": 6, "lap": "2:19.010", "lapMs": 1390100, "driver": "Owen Pryce", "irating": 4600, "car": "Audi R8 LMS EVO II GT3" },
+            { "rank": 7, "lap": "2:19.220", "lapMs": 1392200, "driver": "Stefan Bauer", "irating": 4310, "car": "Lamborghini Huracan GT3 EVO" },
+            { "rank": 8, "lap": "2:19.450", "lapMs": 1394500, "driver": "Tom Whateley", "irating": 4090, "car": "McLaren 720S GT3" },
+            { "rank": 9, "lap": "2:19.610", "lapMs": 1396100, "driver": "Paolo Bianchi", "irating": 3880, "car": "Chevrolet Corvette Z06 GT3.R" },
+            { "rank": 10, "lap": "2:19.880", "lapMs": 1398800, "driver": "Henrik Vold", "irating": 3640, "car": "Ford Mustang GT3" }
+          ],
+          "cars": [
+            { "rank": 1, "lap": "2:16.421", "lapMs": 1364210, "driver": "Max Versteeg", "irating": 6820, "car": "Ferrari 296 GT3" },
+            { "rank": 2, "lap": "2:16.510", "lapMs": 1365100, "driver": "Liam Carter", "irating": 5990, "car": "Porsche 911 GT3 R" },
+            { "rank": 3, "lap": "2:16.633", "lapMs": 1366330, "driver": "Anders Holm", "irating": 7200, "car": "Mercedes-AMG GT3 2020" },
+            { "rank": 4, "lap": "2:16.844", "lapMs": 1368440, "driver": "Kenji Sato", "irating": 4980, "car": "BMW M4 GT3" },
+            { "rank": 5, "lap": "2:16.998", "lapMs": 1369980, "driver": "Owen Pryce", "irating": 4600, "car": "Audi R8 LMS EVO II GT3" },
+            { "rank": 6, "lap": "2:17.044", "lapMs": 1370440, "driver": "Stefan Bauer", "irating": 4310, "car": "Lamborghini Huracan GT3 EVO" },
+            { "rank": 7, "lap": "2:17.180", "lapMs": 1371800, "driver": "Tom Whateley", "irating": 4090, "car": "McLaren 720S GT3" },
+            { "rank": 8, "lap": "2:17.260", "lapMs": 1372600, "driver": "Paolo Bianchi", "irating": 3880, "car": "Chevrolet Corvette Z06 GT3.R" },
+            { "rank": 9, "lap": "2:17.402", "lapMs": 1374020, "driver": "Henrik Vold", "irating": 3640, "car": "Ford Mustang GT3" }
+          ]
+        }
+      }
+    },
+    "imsa-open": {
+      "displayName": "IMSA — Open",
+      "category": "IMSA",
+      "multiclass": true,
+      "classes": {
+        "GTP": {
+          "weekId": "2026-2-7",
+          "weekNum": 7,
+          "track": "Watkins Glen International",
+          "lastFetchedUtc": "2026-05-22T14:14:30Z",
+          "qualifying": [
+            { "rank": 1, "lap": "1:39.210", "lapMs": 992100, "driver": "Ryan Foss", "irating": 7410, "car": "Acura ARX-06 GTP" },
+            { "rank": 2, "lap": "1:39.330", "lapMs": 993300, "driver": "Mateo Cruz", "irating": 6980, "car": "Porsche 963 GTP" },
+            { "rank": 3, "lap": "1:39.480", "lapMs": 994800, "driver": "Erik Lindholm", "irating": 6650, "car": "BMW M Hybrid V8 GTP" },
+            { "rank": 4, "lap": "1:39.510", "lapMs": 995100, "driver": "Sam Whitlock", "irating": 6120, "car": "Cadillac V-Series.R GTP" },
+            { "rank": 5, "lap": "1:39.700", "lapMs": 997000, "driver": "Nico Bianchi", "irating": 5880, "car": "Ferrari 499P GTP" }
+          ],
+          "raceLap": [
+            { "rank": 1, "lap": "1:39.640", "lapMs": 996400, "driver": "Mateo Cruz", "irating": 6980, "car": "Porsche 963 GTP" },
+            { "rank": 2, "lap": "1:39.710", "lapMs": 997100, "driver": "Ryan Foss", "irating": 7410, "car": "Acura ARX-06 GTP" },
+            { "rank": 3, "lap": "1:39.880", "lapMs": 998800, "driver": "Erik Lindholm", "irating": 6650, "car": "BMW M Hybrid V8 GTP" },
+            { "rank": 4, "lap": "1:40.010", "lapMs": 1000100, "driver": "Sam Whitlock", "irating": 6120, "car": "Cadillac V-Series.R GTP" },
+            { "rank": 5, "lap": "1:40.190", "lapMs": 1001900, "driver": "Nico Bianchi", "irating": 5880, "car": "Ferrari 499P GTP" }
+          ],
+          "raceAvg": [
+            { "rank": 1, "lap": "1:41.020", "lapMs": 1010200, "driver": "Ryan Foss", "irating": 7410, "car": "Acura ARX-06 GTP" },
+            { "rank": 2, "lap": "1:41.180", "lapMs": 1011800, "driver": "Mateo Cruz", "irating": 6980, "car": "Porsche 963 GTP" },
+            { "rank": 3, "lap": "1:41.340", "lapMs": 1013400, "driver": "Erik Lindholm", "irating": 6650, "car": "BMW M Hybrid V8 GTP" },
+            { "rank": 4, "lap": "1:41.560", "lapMs": 1015600, "driver": "Sam Whitlock", "irating": 6120, "car": "Cadillac V-Series.R GTP" },
+            { "rank": 5, "lap": "1:41.790", "lapMs": 1017900, "driver": "Nico Bianchi", "irating": 5880, "car": "Ferrari 499P GTP" }
+          ],
+          "cars": [
+            { "rank": 1, "lap": "1:39.210", "lapMs": 992100, "driver": "Ryan Foss", "irating": 7410, "car": "Acura ARX-06 GTP" },
+            { "rank": 2, "lap": "1:39.330", "lapMs": 993300, "driver": "Mateo Cruz", "irating": 6980, "car": "Porsche 963 GTP" },
+            { "rank": 3, "lap": "1:39.480", "lapMs": 994800, "driver": "Erik Lindholm", "irating": 6650, "car": "BMW M Hybrid V8 GTP" },
+            { "rank": 4, "lap": "1:39.510", "lapMs": 995100, "driver": "Sam Whitlock", "irating": 6120, "car": "Cadillac V-Series.R GTP" },
+            { "rank": 5, "lap": "1:39.700", "lapMs": 997000, "driver": "Nico Bianchi", "irating": 5880, "car": "Ferrari 499P GTP" }
+          ]
+        },
+        "LMP2": {
+          "weekId": "2026-2-7",
+          "weekNum": 7,
+          "track": "Watkins Glen International",
+          "lastFetchedUtc": "2026-05-22T14:14:30Z",
+          "qualifying": [
+            { "rank": 1, "lap": "1:42.880", "lapMs": 1028800, "driver": "Felix Brandt", "irating": 5210, "car": "Dallara P217 LMP2" },
+            { "rank": 2, "lap": "1:43.010", "lapMs": 1030100, "driver": "Jonas Reuter", "irating": 4890, "car": "Dallara P217 LMP2" },
+            { "rank": 3, "lap": "1:43.220", "lapMs": 1032200, "driver": "Marco Vitale", "irating": 4560, "car": "Dallara P217 LMP2" }
+          ],
+          "raceLap": [
+            { "rank": 1, "lap": "1:43.300", "lapMs": 1033000, "driver": "Jonas Reuter", "irating": 4890, "car": "Dallara P217 LMP2" },
+            { "rank": 2, "lap": "1:43.410", "lapMs": 1034100, "driver": "Felix Brandt", "irating": 5210, "car": "Dallara P217 LMP2" },
+            { "rank": 3, "lap": "1:43.620", "lapMs": 1036200, "driver": "Marco Vitale", "irating": 4560, "car": "Dallara P217 LMP2" }
+          ],
+          "raceAvg": [
+            { "rank": 1, "lap": "1:44.510", "lapMs": 1045100, "driver": "Felix Brandt", "irating": 5210, "car": "Dallara P217 LMP2" },
+            { "rank": 2, "lap": "1:44.730", "lapMs": 1047300, "driver": "Jonas Reuter", "irating": 4890, "car": "Dallara P217 LMP2" },
+            { "rank": 3, "lap": "1:44.980", "lapMs": 1049800, "driver": "Marco Vitale", "irating": 4560, "car": "Dallara P217 LMP2" }
+          ],
+          "cars": [
+            { "rank": 1, "lap": "1:42.880", "lapMs": 1028800, "driver": "Felix Brandt", "irating": 5210, "car": "Dallara P217 LMP2" }
+          ]
+        },
+        "GT3": {
+          "weekId": "2026-2-7",
+          "weekNum": 7,
+          "track": "Watkins Glen International",
+          "lastFetchedUtc": "2026-05-22T14:14:30Z",
+          "qualifying": [
+            { "rank": 1, "lap": "1:46.940", "lapMs": 1069400, "driver": "Hugo Almeida", "irating": 4720, "car": "Ferrari 296 GT3" },
+            { "rank": 2, "lap": "1:47.080", "lapMs": 1070800, "driver": "Karl Vogt", "irating": 4410, "car": "Porsche 911 GT3 R" },
+            { "rank": 3, "lap": "1:47.230", "lapMs": 1072300, "driver": "Devin Park", "irating": 4150, "car": "BMW M4 GT3" }
+          ],
+          "raceLap": [
+            { "rank": 1, "lap": "1:47.300", "lapMs": 1073000, "driver": "Karl Vogt", "irating": 4410, "car": "Porsche 911 GT3 R" },
+            { "rank": 2, "lap": "1:47.420", "lapMs": 1074200, "driver": "Hugo Almeida", "irating": 4720, "car": "Ferrari 296 GT3" },
+            { "rank": 3, "lap": "1:47.640", "lapMs": 1076400, "driver": "Devin Park", "irating": 4150, "car": "BMW M4 GT3" }
+          ],
+          "raceAvg": [
+            { "rank": 1, "lap": "1:48.510", "lapMs": 1085100, "driver": "Hugo Almeida", "irating": 4720, "car": "Ferrari 296 GT3" },
+            { "rank": 2, "lap": "1:48.730", "lapMs": 1087300, "driver": "Karl Vogt", "irating": 4410, "car": "Porsche 911 GT3 R" },
+            { "rank": 3, "lap": "1:48.980", "lapMs": 1089800, "driver": "Devin Park", "irating": 4150, "car": "BMW M4 GT3" }
+          ],
+          "cars": [
+            { "rank": 1, "lap": "1:46.940", "lapMs": 1069400, "driver": "Hugo Almeida", "irating": 4720, "car": "Ferrari 296 GT3" },
+            { "rank": 2, "lap": "1:47.080", "lapMs": 1070800, "driver": "Karl Vogt", "irating": 4410, "car": "Porsche 911 GT3 R" },
+            { "rank": 3, "lap": "1:47.230", "lapMs": 1072300, "driver": "Devin Park", "irating": 4150, "car": "BMW M4 GT3" }
+          ]
+        }
+      }
+    },
+    "porsche-cup": {
+      "displayName": "Porsche Cup",
+      "category": "Porsche Cup",
+      "multiclass": false,
+      "classes": {
+        "Cup": {
+          "weekId": "2026-2-7",
+          "weekNum": 7,
+          "track": "Autodromo Nazionale Monza",
+          "lastFetchedUtc": "2026-05-22T14:14:30Z",
+          "qualifying": [
+            { "rank": 1, "lap": "1:47.110", "lapMs": 1071100, "driver": "Lars Andersen", "irating": 5320, "car": "Porsche 911 GT3 Cup (992)" },
+            { "rank": 2, "lap": "1:47.260", "lapMs": 1072600, "driver": "Gio Ferraro", "irating": 4980, "car": "Porsche 911 GT3 Cup (992)" },
+            { "rank": 3, "lap": "1:47.400", "lapMs": 1074000, "driver": "Bram de Vries", "irating": 4710, "car": "Porsche 911 GT3 Cup (992)" }
+          ],
+          "raceLap": [
+            { "rank": 1, "lap": "1:47.480", "lapMs": 1074800, "driver": "Gio Ferraro", "irating": 4980, "car": "Porsche 911 GT3 Cup (992)" },
+            { "rank": 2, "lap": "1:47.590", "lapMs": 1075900, "driver": "Lars Andersen", "irating": 5320, "car": "Porsche 911 GT3 Cup (992)" },
+            { "rank": 3, "lap": "1:47.810", "lapMs": 1078100, "driver": "Bram de Vries", "irating": 4710, "car": "Porsche 911 GT3 Cup (992)" }
+          ],
+          "raceAvg": [
+            { "rank": 1, "lap": "1:48.620", "lapMs": 1086200, "driver": "Lars Andersen", "irating": 5320, "car": "Porsche 911 GT3 Cup (992)" },
+            { "rank": 2, "lap": "1:48.840", "lapMs": 1088400, "driver": "Gio Ferraro", "irating": 4980, "car": "Porsche 911 GT3 Cup (992)" },
+            { "rank": 3, "lap": "1:49.090", "lapMs": 1090900, "driver": "Bram de Vries", "irating": 4710, "car": "Porsche 911 GT3 Cup (992)" }
+          ]
+        }
+      }
+    }
+  }
+}
