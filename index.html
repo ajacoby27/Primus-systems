@@ -60,6 +60,13 @@ body{background-color:#0f0f14;background-image:linear-gradient(45deg,#13131a 25%
 .nav-item.disabled{color:var(--mut);cursor:default;}
 .nav-item.disabled:hover{background:none;}
 .nav-soon{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;background:var(--b2);color:var(--mut);padding:2px 6px;border-radius:10px;}
+.welcome-logo{font-family:'Barlow Condensed',sans-serif;letter-spacing:0.2em;font-size:0.85rem;color:var(--mut);text-transform:uppercase;margin-bottom:1.5rem;}
+.welcome-logo em{color:var(--acc);font-style:normal;}
+.welcome-title{font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:700;margin:0 0 0.6rem;color:var(--txt);line-height:1.05;}
+.welcome-sub{color:var(--mut);font-size:1.02rem;margin:0 0 2rem;}
+.welcome-cta{color:var(--txt);font-size:1.05rem;display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;}
+.welcome-burger{display:inline-flex;flex-direction:column;justify-content:center;gap:3px;width:26px;height:26px;background:var(--s1);border:1px solid var(--acc);border-radius:3px;padding:0 6px;vertical-align:middle;}
+.welcome-burger span{display:block;height:2px;background:var(--acc);border-radius:2px;}
 .ttags{display:flex;gap:4px;}
 .tt{font-size:0.58rem;padding:2px 6px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:0.06em;}
 .tt-h{background:rgba(167,139,250,0.12);color:var(--acc);border:1px solid rgba(167,139,250,0.25);}
@@ -243,10 +250,18 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
 <div id="navOverlay" class="nav-overlay" onclick="closeMenu()"></div>
 <nav id="navDrawer" class="nav-drawer">
   <div class="nav-title">Menu</div>
-  <div class="nav-item active" id="navSetup" onclick="showView('setup')">Setup</div>
+  <div class="nav-item active" id="navHome" onclick="showView('welcome')">Home</div>
+  <div class="nav-item" id="navSetup" onclick="showView('setup')">Setup</div>
   <div class="nav-item" id="navReports" onclick="showView('reports')">Weekly Reports</div>
   <div class="nav-item disabled" id="navTelemetry">Telemetry <span class="nav-soon">soon</span></div>
 </nav>
+<div id="welcomeView" style="display:none;padding:3.5rem 2rem;max-width:720px;margin:0 auto;text-align:center;">
+  <div class="welcome-logo">PRIMUS <em>/</em> SYSTEMS</div>
+  <h1 class="welcome-title">Welcome to Primus Systems</h1>
+  <p class="welcome-sub">Your iRacing setup engineer and weekly reports, all in one place.</p>
+  <div class="welcome-cta">Press the <span class="welcome-burger"><span></span><span></span><span></span></span> menu in the top-right to continue.</div>
+  <button class="btn btnp" onclick="openMenu()" style="margin-top:1.6rem;">Open Menu</button>
+</div>
 <div class="steps">
   <div class="step active" id="tab1" onclick="goStep(1)"><div class="snum">1</div><span>Track &amp; Car</span></div>
   <div class="step" id="tab2" onclick="if(!document.querySelector('#carClass .pill.on')){showCarWarning();return;}goStep(2)"><div class="snum">2</div><span>Current Setup</span></div>
@@ -531,16 +546,16 @@ function goStep(n){
 
 // ── WEEKLY REPORTS VIEW ─────────────────────────────────────────────────────
 function showView(v){
-  var setup=v!=='reports';
-  var steps=document.querySelector('.steps');if(steps)steps.style.display=setup?'':'none';
+  var isSetup=(v==='setup'),isReports=(v==='reports'),isWelcome=(v==='welcome');
+  var steps=document.querySelector('.steps');if(steps)steps.style.display=isSetup?'':'none';
   var panels=document.querySelectorAll('.panel');
-  for(var i=0;i<panels.length;i++)panels[i].style.display=setup?'':'none';
-  var rv=document.getElementById('reportsView');if(rv)rv.style.display=setup?'none':'block';
-  var ns=document.getElementById('navSetup'),nr=document.getElementById('navReports');
-  if(ns)ns.classList.toggle('active',setup);
-  if(nr)nr.classList.toggle('active',!setup);
+  for(var i=0;i<panels.length;i++)panels[i].style.display=isSetup?'':'none';
+  var wv=document.getElementById('welcomeView');if(wv)wv.style.display=isWelcome?'block':'none';
+  var rv=document.getElementById('reportsView');if(rv)rv.style.display=isReports?'block':'none';
+  var navMap={welcome:'navHome',setup:'navSetup',reports:'navReports'};
+  ['navHome','navSetup','navReports'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.toggle('active',navMap[v]===id);});
   closeMenu();
-  if(!setup)initReports();
+  if(isReports)initReports();
   window.scrollTo(0,0);
 }
 function toggleMenu(){var d=document.getElementById('navDrawer');if(d.classList.contains('open'))closeMenu();else openMenu();}
@@ -9663,6 +9678,9 @@ function generate(){
 
   goStep(4);
 }
+
+// Show the welcome landing page on first load.
+showView('welcome');
 </script>
 </body>
 </html>
