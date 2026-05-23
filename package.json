@@ -1,0 +1,11 @@
+{
+  "name": "primus-reports-pipeline",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test \"scripts/reports/**/*.test.js\"",
+    "build": "node scripts/reports/build-reports.js"
+  }
+}
