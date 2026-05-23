@@ -33,6 +33,19 @@ body{background-color:#0f0f14;background-image:linear-gradient(45deg,#13131a 25%
 .topt{padding:0.55rem 1rem;cursor:pointer;font-size:0.8rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--b1);}
 .topt:last-child{border-bottom:none;}
 .topt:hover{background:var(--b1);}
+.rep-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;border-bottom:1px solid var(--b1);padding-bottom:8px;margin-bottom:12px;}
+.rep-head .rh-series{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:600;color:var(--txt);}
+.rep-head .rh-meta{color:var(--mut);font-size:0.8rem;}
+.rep-head .rh-upd{margin-left:auto;color:var(--mut);font-size:0.7rem;opacity:0.85;}
+.rep-toggles{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 14px;}
+.rep-banner{background:rgba(255,180,60,0.12);border:1px solid rgba(255,180,60,0.4);color:#ffb43c;font-size:0.72rem;font-weight:600;padding:0.45rem 0.75rem;border-radius:3px;margin-bottom:12px;}
+.lb{width:100%;border-collapse:collapse;font-size:0.85rem;}
+.lb th{text-align:left;color:var(--mut);font-weight:600;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;padding:4px 8px;border-bottom:1px solid var(--b1);}
+.lb td{padding:5px 8px;border-bottom:1px solid var(--b1);}
+.lb .lb-rank{color:var(--mut);width:2.2em;}
+.lb .lb-lap{font-variant-numeric:tabular-nums;font-weight:600;color:var(--txt);}
+.lb .lb-ir{color:var(--mut);font-variant-numeric:tabular-nums;}
+.rep-empty{color:var(--mut);font-size:0.85rem;padding:1.5rem 0;text-align:center;}
 .ttags{display:flex;gap:4px;}
 .tt{font-size:0.58rem;padding:2px 6px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:0.06em;}
 .tt-h{background:rgba(167,139,250,0.12);color:var(--acc);border:1px solid rgba(167,139,250,0.25);}
@@ -205,6 +218,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
     </div>
   </div>
   <div style="display:flex;align-items:center;gap:12px;">
+    <div class="pills" id="viewToggle" style="gap:3px;">
+      <div class="pill on" data-val="setup" onclick="showView('setup')">Setup</div>
+      <div class="pill" data-val="reports" onclick="showView('reports')">Reports</div>
+    </div>
     <div class="pills" id="unitToggle" style="gap:3px;">
       <div class="pill on" data-val="metric" onclick="setUnits('metric')">Metric</div>
       <div class="pill" data-val="imperial" onclick="setUnits('imperial')">Imperial</div>
@@ -406,6 +423,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
     <button class="btn btnp" onclick="goStep(1)">New Setup</button>
   </div>
 </div>
+<div id="reportsView" style="display:none;padding:1.75rem 2rem;max-width:920px;margin:0 auto;"></div>
 <script>
 var issueList=[];
 var issueIdCounter=0;
@@ -492,6 +510,86 @@ function goStep(n){
   if(n===1){issueList=[];renderIssueList();}
   window.scrollTo(0,0);
 }
+
+// ── WEEKLY REPORTS VIEW ─────────────────────────────────────────────────────
+function showView(v){
+  var setup=v!=='reports';
+  var steps=document.querySelector('.steps');if(steps)steps.style.display=setup?'':'none';
+  var panels=document.querySelectorAll('.panel');
+  for(var i=0;i<panels.length;i++)panels[i].style.display=setup?'':'none';
+  var rv=document.getElementById('reportsView');if(rv)rv.style.display=setup?'none':'block';
+  var vt=document.querySelectorAll('#viewToggle .pill');
+  for(var j=0;j<vt.length;j++)vt[j].classList.toggle('on',vt[j].getAttribute('data-val')===v);
+  if(!setup)initReports();
+  window.scrollTo(0,0);
+}
+var REPORTS=null,_reportsLoaded=false,repSel={key:null,cls:null,cat:'qualifying'};
+function initReports(){
+  if(_reportsLoaded){renderReports();return;}
+  var host=document.getElementById('reportsView');
+  host.innerHTML='<div class="rep-empty">Loading weekly reports…</div>';
+  fetch('data/weekly-reports.json?t='+Date.now(),{cache:'no-store'})
+    .then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
+    .then(function(j){REPORTS=j;_reportsLoaded=true;renderReports();})
+    .catch(function(){host.innerHTML='<div class="rep-empty">Couldn’t load reports. If you opened this file directly (file://), it must be served over http — use the live site or serve.ps1.</div>';});
+}
+function repEsc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function repSeriesList(){var s=(REPORTS&&REPORTS.series)||{};return Object.keys(s).map(function(k){return {key:k,displayName:s[k].displayName,category:s[k].category};});}
+function renderReports(){
+  var host=document.getElementById('reportsView');
+  var banner=(REPORTS&&REPORTS.sample)?'<div class="rep-banner">Sample data — live iRacing results pending API access.</div>':'';
+  host.innerHTML=banner+
+    '<div class="ptitle">Weekly Reports</div>'+
+    '<div class="psub">Fastest laps of the current race week, by series. Start typing a series name.</div>'+
+    '<div class="tswrap"><input type="text" id="repSearch" placeholder="Search series e.g. GT3, IMSA, Porsche Cup" oninput="searchSeries(this.value)" autocomplete="off"><div class="tdd" id="rdd"></div></div>'+
+    '<div id="repClassRow"></div>'+
+    '<div id="repCard" style="margin-top:14px;"></div>';
+  if(repSel.key&&REPORTS.series[repSel.key]){document.getElementById('repSearch').value=REPORTS.series[repSel.key].displayName;renderClassRow();renderRepCard();}
+}
+function searchSeries(v){
+  var dd=document.getElementById('rdd');if(!dd)return;
+  if(!v||v.length<1){dd.classList.remove('open');return;}
+  var q=v.toLowerCase();
+  var res=repSeriesList().filter(function(s){return (s.displayName+' '+s.category).toLowerCase().indexOf(q)>=0;}).slice(0,8);
+  if(!res.length){dd.classList.remove('open');return;}
+  dd.innerHTML=res.map(function(s){return '<div class="topt" onclick="selSeries(\''+s.key+'\')"><span>'+repEsc(s.displayName)+'</span><span class="ttags"><span class="tt tt-m">'+repEsc(s.category)+'</span></span></div>';}).join('');
+  dd.classList.add('open');
+}
+function selSeries(key){
+  var s=REPORTS.series[key];if(!s)return;
+  repSel.key=key;repSel.cat='qualifying';
+  var classes=Object.keys(s.classes||{});repSel.cls=classes[0]||null;
+  document.getElementById('repSearch').value=s.displayName;
+  document.getElementById('rdd').classList.remove('open');
+  renderClassRow();renderRepCard();
+}
+function renderClassRow(){
+  var row=document.getElementById('repClassRow');if(!row)return;
+  var s=REPORTS.series[repSel.key];var classes=Object.keys((s&&s.classes)||{});
+  if(!s||!s.multiclass||classes.length<2){row.innerHTML='';return;}
+  row.innerHTML='<div class="rep-toggles">'+classes.map(function(c){return '<div class="pill'+(c===repSel.cls?' on':'')+'" onclick="selRepClass(\''+c+'\')">'+repEsc(c)+'</div>';}).join('')+'</div>';
+}
+function selRepClass(c){repSel.cls=c;repSel.cat='qualifying';renderClassRow();renderRepCard();}
+var REP_CATS=[['qualifying','Fastest Qualifying'],['raceLap','Fastest Race Lap'],['raceAvg','Best Race Avg'],['cars','Fastest Cars']];
+function renderRepCard(){
+  var card=document.getElementById('repCard');if(!card)return;
+  var s=REPORTS.series[repSel.key];var node=((s&&s.classes)||{})[repSel.cls];
+  if(!node){card.innerHTML='<div class="rep-empty">No data for this selection yet.</div>';return;}
+  var hasCars=Array.isArray(node.cars)&&node.cars.length>0;
+  if(repSel.cat==='cars'&&!hasCars)repSel.cat='qualifying';
+  var cats=REP_CATS.filter(function(c){return c[0]!=='cars'||hasCars;});
+  var toggles='<div class="rep-toggles">'+cats.map(function(c){return '<div class="pill'+(c[0]===repSel.cat?' on':'')+'" onclick="selRepCat(\''+c[0]+'\')">'+c[1]+'</div>';}).join('')+'</div>';
+  var rows=node[repSel.cat]||[];
+  var body=rows.length?rows.map(function(r){return '<tr><td class="lb-rank">'+r.rank+'</td><td class="lb-lap">'+repEsc(r.lap||'—')+'</td><td>'+repEsc(r.driver||'')+'</td><td class="lb-ir">'+(r.irating?'iR '+r.irating:'')+'</td><td>'+repEsc(r.car||'')+'</td></tr>';}).join(''):'<tr><td colspan="5" class="rep-empty">No laps recorded yet this week.</td></tr>';
+  var upd=node.lastFetchedUtc?'<span class="rh-upd">updated '+timeAgo(node.lastFetchedUtc)+'</span>':'';
+  var title=s.displayName+((s.multiclass&&repSel.cls)?(' · '+repSel.cls):'');
+  card.innerHTML='<div class="rep-head"><span class="rh-series">'+repEsc(title)+'</span><span class="rh-meta">Week '+(node.weekNum!=null?node.weekNum:'?')+' · '+repEsc(node.track||'')+'</span>'+upd+'</div>'+toggles+'<table class="lb"><thead><tr><th>#</th><th>Lap</th><th>Driver</th><th>iRating</th><th>Car</th></tr></thead><tbody>'+body+'</tbody></table>';
+}
+function selRepCat(c){repSel.cat=c;renderRepCard();}
+function timeAgo(iso){var d=Date.now()-Date.parse(iso);if(isNaN(d))return'';var m=Math.round(d/60000);if(m<1)return'just now';if(m<60)return m+' min ago';var h=Math.round(m/60);if(h<24)return h+'h ago';return Math.round(h/24)+'d ago';}
+document.addEventListener('click',function(e){var dd=document.getElementById('rdd');if(dd&&!e.target.closest('#reportsView .tswrap'))dd.classList.remove('open');});
+// ────────────────────────────────────────────────────────────────────────────
+
 var pillGroups=document.querySelectorAll('.pills');
 for(var pg=0;pg<pillGroups.length;pg++){
   (function(g){

@@ -1,25 +1,51 @@
+# Minimal static file server for local testing of Primus + the Reports JSON.
+# Serves files by request path from this script's folder. Ctrl+C to stop.
+$root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $port = 8080
-$file = "c:\Users\alexa\OneDrive\Desktop\Primus Systems\primus-v17 (1).html"
+$prefix = "http://localhost:$port/"
 
-$listener = [System.Net.Sockets.TcpListener]::new([System.Net.IPAddress]::Loopback, $port)
+$types = @{
+  '.html' = 'text/html; charset=utf-8'
+  '.json' = 'application/json; charset=utf-8'
+  '.js'   = 'text/javascript; charset=utf-8'
+  '.css'  = 'text/css; charset=utf-8'
+  '.svg'  = 'image/svg+xml'
+  '.png'  = 'image/png'
+  '.ico'  = 'image/x-icon'
+}
+
+$listener = [System.Net.HttpListener]::new()
+$listener.Prefixes.Add($prefix)
 $listener.Start()
-Write-Host "Serving at http://localhost:$port/  (close this window to stop)" -ForegroundColor Cyan
-Start-Process "http://localhost:$port/"
+Write-Host "Serving $root at $prefix  (Ctrl+C to stop)" -ForegroundColor Cyan
+Start-Process $prefix
 
-while ($true) {
-    $client = $listener.AcceptTcpClient()
-    $stream = $client.GetStream()
+try {
+  while ($listener.IsListening) {
+    $ctx = $listener.GetContext()
     try {
-        # Read request (discard)
-        $buf = New-Object byte[] 4096
-        if ($stream.DataAvailable) { $stream.Read($buf, 0, $buf.Length) | Out-Null }
-
-        $body    = [System.IO.File]::ReadAllBytes($file)
-        $headers = [System.Text.Encoding]::ASCII.GetBytes(
-            "HTTP/1.1 200 OK`r`nContent-Type: text/html; charset=utf-8`r`nContent-Length: $($body.Length)`r`nConnection: close`r`n`r`n"
-        )
-        $stream.Write($headers, 0, $headers.Length)
-        $stream.Write($body,    0, $body.Length)
-    } catch { }
-    try { $stream.Close(); $client.Close() } catch { }
+      $rel = [Uri]::UnescapeDataString($ctx.Request.Url.AbsolutePath.TrimStart('/'))
+      if ([string]::IsNullOrWhiteSpace($rel)) { $rel = 'index.html' }
+      $path = Join-Path $root $rel
+      if (Test-Path $path -PathType Leaf) {
+        $bytes = [System.IO.File]::ReadAllBytes($path)
+        $ext = [System.IO.Path]::GetExtension($path).ToLower()
+        $ct = $types[$ext]
+        if (-not $ct) { $ct = 'application/octet-stream' }
+        $ctx.Response.ContentType = $ct
+        $ctx.Response.Headers.Add('Cache-Control', 'no-store')
+        $ctx.Response.OutputStream.Write($bytes, 0, $bytes.Length)
+      } else {
+        $ctx.Response.StatusCode = 404
+        $msg = [System.Text.Encoding]::UTF8.GetBytes("404 Not Found: $rel")
+        $ctx.Response.OutputStream.Write($msg, 0, $msg.Length)
+      }
+    } catch {
+      $ctx.Response.StatusCode = 500
+    } finally {
+      $ctx.Response.Close()
+    }
+  }
+} finally {
+  $listener.Stop()
 }
