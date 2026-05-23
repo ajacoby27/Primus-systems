@@ -46,6 +46,20 @@ body{background-color:#0f0f14;background-image:linear-gradient(45deg,#13131a 25%
 .lb .lb-lap{font-variant-numeric:tabular-nums;font-weight:600;color:var(--txt);}
 .lb .lb-ir{color:var(--mut);font-variant-numeric:tabular-nums;}
 .rep-empty{color:var(--mut);font-size:0.85rem;padding:1.5rem 0;text-align:center;}
+.menu-btn{display:flex;flex-direction:column;justify-content:center;gap:4px;width:34px;height:34px;background:var(--s1);border:1px solid var(--b1);border-radius:3px;cursor:pointer;padding:0 7px;}
+.menu-btn span{display:block;height:2px;background:var(--txt);border-radius:2px;transition:0.2s;}
+.menu-btn:hover{border-color:var(--acc);}
+.nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);opacity:0;visibility:hidden;transition:opacity 0.2s;z-index:200;}
+.nav-overlay.open{opacity:1;visibility:visible;}
+.nav-drawer{position:fixed;top:0;right:0;height:100%;width:260px;max-width:80vw;background:var(--s2);border-left:1px solid var(--b2);transform:translateX(100%);transition:transform 0.22s ease;z-index:201;padding:1.25rem 0;box-shadow:-8px 0 24px rgba(0,0,0,0.3);}
+.nav-drawer.open{transform:translateX(0);}
+.nav-title{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:0.14em;font-size:0.7rem;color:var(--mut);padding:0 1.25rem 0.75rem;}
+.nav-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0.8rem 1.25rem;font-size:0.95rem;color:var(--txt);cursor:pointer;border-left:3px solid transparent;}
+.nav-item:hover{background:var(--b1);}
+.nav-item.active{border-left-color:var(--acc);background:var(--b1);font-weight:600;}
+.nav-item.disabled{color:var(--mut);cursor:default;}
+.nav-item.disabled:hover{background:none;}
+.nav-soon{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;background:var(--b2);color:var(--mut);padding:2px 6px;border-radius:10px;}
 .ttags{display:flex;gap:4px;}
 .tt{font-size:0.58rem;padding:2px 6px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:0.06em;}
 .tt-h{background:rgba(167,139,250,0.12);color:var(--acc);border:1px solid rgba(167,139,250,0.25);}
@@ -218,17 +232,21 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;heigh
     </div>
   </div>
   <div style="display:flex;align-items:center;gap:12px;">
-    <div class="pills" id="viewToggle" style="gap:3px;">
-      <div class="pill on" data-val="setup" onclick="showView('setup')">Setup</div>
-      <div class="pill" data-val="reports" onclick="showView('reports')">Reports</div>
-    </div>
     <div class="pills" id="unitToggle" style="gap:3px;">
       <div class="pill on" data-val="metric" onclick="setUnits('metric')">Metric</div>
       <div class="pill" data-val="imperial" onclick="setUnits('imperial')">Imperial</div>
     </div>
     <div class="hbadge">iRacing · GT3 · LMP2</div>
+    <button id="menuBtn" class="menu-btn" onclick="toggleMenu()" aria-label="Open menu"><span></span><span></span><span></span></button>
   </div>
 </header>
+<div id="navOverlay" class="nav-overlay" onclick="closeMenu()"></div>
+<nav id="navDrawer" class="nav-drawer">
+  <div class="nav-title">Menu</div>
+  <div class="nav-item active" id="navSetup" onclick="showView('setup')">Setup</div>
+  <div class="nav-item" id="navReports" onclick="showView('reports')">Weekly Reports</div>
+  <div class="nav-item disabled" id="navTelemetry">Telemetry <span class="nav-soon">soon</span></div>
+</nav>
 <div class="steps">
   <div class="step active" id="tab1" onclick="goStep(1)"><div class="snum">1</div><span>Track &amp; Car</span></div>
   <div class="step" id="tab2" onclick="if(!document.querySelector('#carClass .pill.on')){showCarWarning();return;}goStep(2)"><div class="snum">2</div><span>Current Setup</span></div>
@@ -518,11 +536,16 @@ function showView(v){
   var panels=document.querySelectorAll('.panel');
   for(var i=0;i<panels.length;i++)panels[i].style.display=setup?'':'none';
   var rv=document.getElementById('reportsView');if(rv)rv.style.display=setup?'none':'block';
-  var vt=document.querySelectorAll('#viewToggle .pill');
-  for(var j=0;j<vt.length;j++)vt[j].classList.toggle('on',vt[j].getAttribute('data-val')===v);
+  var ns=document.getElementById('navSetup'),nr=document.getElementById('navReports');
+  if(ns)ns.classList.toggle('active',setup);
+  if(nr)nr.classList.toggle('active',!setup);
+  closeMenu();
   if(!setup)initReports();
   window.scrollTo(0,0);
 }
+function toggleMenu(){var d=document.getElementById('navDrawer');if(d.classList.contains('open'))closeMenu();else openMenu();}
+function openMenu(){document.getElementById('navDrawer').classList.add('open');document.getElementById('navOverlay').classList.add('open');}
+function closeMenu(){var d=document.getElementById('navDrawer');if(d)d.classList.remove('open');var o=document.getElementById('navOverlay');if(o)o.classList.remove('open');}
 var REPORTS=null,_reportsLoaded=false,repSel={key:null,cls:null,cat:'qualifying'};
 function initReports(){
   if(_reportsLoaded){renderReports();return;}
