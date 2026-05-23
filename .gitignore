@@ -1,3 +1,6 @@
+# Secrets — NEVER commit
+.env
+
 # Agent / local tooling
 .claude/
 
